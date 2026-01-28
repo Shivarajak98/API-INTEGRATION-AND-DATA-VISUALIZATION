@@ -3,9 +3,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-# -----------------------------
 # API REQUEST (Open-Meteo)
-# -----------------------------
+
 url = "https://api.open-meteo.com/v1/forecast"
 
 params = {
@@ -18,9 +17,8 @@ params = {
 response = requests.get(url, params=params)
 data = response.json()
 
-# -----------------------------
 # DATA PROCESSING
-# -----------------------------
+
 df = pd.DataFrame({
     "Time": pd.to_datetime(data["hourly"]["time"]),
     "Temperature (°C)": data["hourly"]["temperature_2m"]
@@ -29,9 +27,8 @@ df = pd.DataFrame({
 # Optional: Filter only next 24 hours
 df_24 = df.head(24)
 
-# -----------------------------
 # MATPLOTLIB VISUALIZATION
-# -----------------------------
+
 plt.figure(figsize=(12, 6))
 plt.plot(df_24["Time"], df_24["Temperature (°C)"], marker="o", color="blue")
 plt.title("Hourly Temperature Change in New Delhi (Next 24 Hours)")
@@ -42,9 +39,8 @@ plt.grid(True)
 plt.tight_layout()
 plt.show()
 
-# -----------------------------
 # SEABORN VISUALIZATION
-# -----------------------------
+
 sns.set(style="whitegrid")
 
 plt.figure(figsize=(12, 6))
@@ -61,3 +57,4 @@ plt.ylabel("Temperature (°C)")
 plt.xticks(rotation=45)
 plt.tight_layout()
 plt.show()
+
